@@ -1,0 +1,28 @@
+image: ubuntu:19.10
+
+stages:
+  - build
+  - test
+
+before_script:
+  - apt-get update && apt-get -y install git build-essential cmake libboost-all-dev libudns-dev
+
+build:
+  stage: build
+  artifacts:
+    untracked: true
+  script:
+    - mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS='-O0 -g -pg -fprofile-arcs -ftest-coverage' -DCMAKE_EXE_LINKER_FLAGS=-pg -DCMAKE_SHARED_LINKER_FLAGS=-pg .. && make
+
+test:
+  stage: test
+  dependencies:
+    - build
+  artifacts:
+    untracked: true
+  script:
+    - cd build
+    - sh -c './cpp_dns_test'
+    - lcov -d . -c --output-file app-raw.info
+    - lcov --remove app-raw.info '/usr/include/*' -o app.info
+    - lcov -l app.info
