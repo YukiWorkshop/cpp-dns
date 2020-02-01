@@ -6,15 +6,23 @@
 C++ async DNS resolver using UDNS and Boost.
 
 ## Requirements
-- C++17
-- Boost (reasonably new version)
+Reasonably new versions of:
+-  C++17 compatible compiler
+-  CMake
+-  Boost
+-  [UDNS](https://www.corpit.ru/mjt/udns.html)
+
+Quick command for Ubuntu users:
+```shell script
+apt install build-essential cmake libboost-all-dev libudns-dev
+``` 
 
 ## Install
 Use of Git submodule and CMake subdirectory is recommended.
 
 ```shell script
-$ mkdir cpp_modules && cd cpp_modules
-$ git submodule add https://github.com/YukiWorkshop/cpp-dns
+mkdir cpp_modules && cd cpp_modules
+git submodule add https://github.com/YukiWorkshop/cpp-dns
 ```
 
 ```cmake
