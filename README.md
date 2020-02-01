@@ -5,8 +5,62 @@
 
 C++ async DNS resolver using UDNS and Boost.
 
+## Requirements
+- C++17
+- Boost (reasonably new version)
+
+## Install
+Use of Git submodule and CMake subdirectory is recommended.
+
+```shell script
+$ mkdir cpp_modules && cd cpp_modules
+$ git submodule add https://github.com/YukiWorkshop/cpp-dns
+```
+
+```cmake
+add_subdirectory(cpp_modules/cpp-dns)
+include_directories(cpp_modules/cpp-dns)
+target_link_libraries(your_project cpp-dns)
+```
+
 ## Usage
-WIP. See `Test.cpp` for example.
+```cpp
+#include <cpp-dns.hpp>
+
+using namespace YukiWorkshop;
+```
+
+Create a new resolver instance with default nameservers.
+
+```cpp
+DNSResolver d(io_svc);
+```
+
+Or with custom nameservers.
+
+```cpp
+DNSResolver d(io_svc, {"1.1.1.1", "8.8.8.8", "8.8.4.4"});
+```
+
+Get A records of `google.com`.
+
+```cpp
+d.resolve_a4("google.com", [&](int err, auto& addrs, auto& qname, auto& cname, uint ttl){
+    if (!err) {
+        std::cout << "Query: " << qname << "\n";
+        std::cout << "CNAME: " << cname << "\n";
+        std::cout << "TTL: " << ttl << "\n";
+
+        for (auto &it : addrs) {
+            std::cout << "A Record: " << it.to_string() << "\n";
+        }
+    }
+});
+```
+
+See [Test.cpp](https://github.com/YukiWorkshop/cpp-dns/blob/master/Test.hpp) for more examples.
+
+Callback definitions are in [DNSResolver.hpp](https://github.com/YukiWorkshop/cpp-dns/blob/master/DNSResolver.hpp).
 
 ## License
 LGPL
