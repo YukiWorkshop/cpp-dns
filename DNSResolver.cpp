@@ -70,10 +70,10 @@ void DNSResolver::iocb_read_avail() {
 		io_wait_read();
 }
 
-void DNSResolver::set_servers(const std::initializer_list<std::string> &__hostnames) {
+void DNSResolver::set_servers(const std::initializer_list<std::string> &__nameservers) {
 	dns_add_serv(ctx_udns, nullptr);
 
-	for (auto &it : __hostnames) {
+	for (auto &it : __nameservers) {
 		if (dns_add_serv(ctx_udns, it.c_str()) < 0) {
 			THROW_ERRNO;
 		}
@@ -234,10 +234,10 @@ DNSResolver::DNSResolver(boost::asio::io_service &__io_svc) : asio_iosvc(__io_sv
 	__open();
 }
 
-DNSResolver::DNSResolver(boost::asio::io_service &__io_svc, const std::initializer_list<std::string> &__hostnames)
+DNSResolver::DNSResolver(boost::asio::io_service &__io_svc, const std::initializer_list<std::string> &__nameservers)
 	: asio_iosvc(__io_svc) {
 	__init();
-	set_servers(__hostnames);
+	set_servers(__nameservers);
 	__open();
 }
 

@@ -88,7 +88,7 @@ namespace YukiWorkshop {
 		void io_wait_read();
 		void iocb_read_avail();
 
-		void set_servers(const std::initializer_list<std::string> &__hostnames);
+		void set_servers(const std::initializer_list<std::string> &__nameservers);
 		void post_resolve();
 
 		static void dnscb_a4(struct dns_ctx *ctx, struct dns_rr_a4 *result, void *data);
@@ -101,7 +101,7 @@ namespace YukiWorkshop {
 	public:
 		explicit DNSResolver(boost::asio::io_service &__io_svc);
 
-		DNSResolver(boost::asio::io_service &__io_svc, const std::initializer_list<std::string> &__hostnames);
+		DNSResolver(boost::asio::io_service &__io_svc, const std::initializer_list<std::string> &__nameservers);
 
 		~DNSResolver();
 
