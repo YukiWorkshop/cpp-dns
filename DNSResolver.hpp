@@ -113,5 +113,7 @@ namespace YukiWorkshop {
 		void resolve_mx(const std::string &__hostname, const MXCallback &__callback);
 		void resolve_srv(const std::string &__hostname, const std::string &__srv, const std::string &__proto, const SRVCallback &__callback);
 
+		static const std::string& error_string(int __err);
+
 	};
 }

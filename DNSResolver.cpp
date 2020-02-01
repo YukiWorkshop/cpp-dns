@@ -309,3 +309,33 @@ void DNSResolver::resolve_srv(const std::string &__hostname, const std::string &
 	post_resolve();
 }
 
+static const std::string errstr_none = "No error";
+static const std::string errstr_tempfail = "Server timeout or down";
+static const std::string errstr_protocol = "Malformed reply";
+static const std::string errstr_nodata = "Domain exists but no data of requested type";
+static const std::string errstr_nomem = "Out of memory";
+static const std::string errstr_badquery = "Malformed query";
+static const std::string errstr_nxdomain = "Domain does not exist";
+static const std::string errstr_invalid = "Invalid error";
+
+const std::string &DNSResolver::error_string(int __err) {
+	switch (__err) {
+		case DNS_E_NOERROR:
+			return errstr_none;
+		case DNS_E_TEMPFAIL:
+			return errstr_tempfail;
+		case DNS_E_PROTOCOL:
+			return errstr_protocol;
+		case DNS_E_NXDOMAIN:
+			return errstr_nxdomain;
+		case DNS_E_NODATA:
+			return errstr_nodata;
+		case DNS_E_NOMEM:
+			return errstr_nomem;
+		case DNS_E_BADQUERY:
+			return errstr_badquery;
+		default:
+			return errstr_invalid;
+	}
+}
+

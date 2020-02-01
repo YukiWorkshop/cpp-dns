@@ -148,6 +148,13 @@ int main(int argc, char **argv) {
 	});
 
 
+	d.resolve_a4("kefpdngjvoeqjgp3rnskldv", [&](int err, auto& addrs, auto& qname, auto& cname, uint ttl){
+		std::unique_lock l(print_lock);
+		std::cout << "==================" << "\n";
+		std::cout << "Oops. " << DNSResolver::error_string(err) << "\n";
+		std::cout << "==================" << "\n";
+
+	});
 
 	iosvc.run();
 
