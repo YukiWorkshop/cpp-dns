@@ -95,5 +95,7 @@ See [Test.cpp](https://github.com/YukiWorkshop/cpp-dns/blob/master/Test.cpp) for
 
 Callback definitions are in [DNSResolver.hpp](https://github.com/YukiWorkshop/cpp-dns/blob/master/DNSResolver.hpp).
 
+Important notice: You need to prevent `io_service` from stopping. Otherwise you'll need to recreate `DNSResolver` since the UDP socket will get removed from `io_service` when it stops.
+
 ## License
 LGPL
